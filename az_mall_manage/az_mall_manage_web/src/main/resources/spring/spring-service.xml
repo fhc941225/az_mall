@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+">
+    <!--鎵弿service灞傜殑娉ㄨВ绫�,浠ヤ笅娉ㄨВ鏄负浜嗘壂鎻忚繖涓瑙ｏ細-->
+    <context:component-scan base-package="com.az.manager.service"/>
+    <!--閰嶇疆浜嬪姟绠＄悊鍣�-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!--灞炴�ф敞鍏ユ暟鎹簮-->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!--娉ㄨВ鏂瑰紡澹版槑寮忎簨鍔＄浜屾-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+</beans>

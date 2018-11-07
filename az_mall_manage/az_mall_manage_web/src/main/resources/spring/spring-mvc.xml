@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+">
+    <!--鎵弿web灞傜殑娉ㄨВ绫�,浠ヤ笅娉ㄨВ鏄负浜嗘壂鎻忚繖涓敞瑙ｏ細@Controller-->
+    <context:component-scan base-package="com.az.manager.controller"/>
+    <!--@RequestMapping @ResponseBody jackson杞崲鎴怞SON-->
+    <mvc:annotation-driven/>
+    <!--涓婁紶瑙ｆ瀽鍣�-->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding">
+            <value>UTF-8</value>
+        </property>
+        <property name="maxUploadSize">
+            <!-- 10M -->
+            <value>10485760</value>
+        </property>
+        <property name="maxInMemorySize">
+            <value>4096</value>
+        </property>
+    </bean>
+    <!--閰嶇疆瑙嗗浘瑙ｆ瀽鍣� Controller  hello(){return "index"}  杞彂锛�/WEB-INF/jsp/index.jsp -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+    <!--闈欐�佽祫婧愭斁琛岋紝鍑℃槸椤甸潰涓婅闂甤ss js images杩欎簺闈欐�佹枃浠舵椂鍊欙紝閮戒笉缁忚繃controller-->
+    <!--url璺緞濡備笅锛歨ttp://localhost:81/manager/css/hello.css-->
+    <!--闈欐�佽祫婧愭斁琛岋細http://localhost:81/manager/css/hello.css鏈潵鏄缁忚繃contrller,浣嗘槸閰嶇疆浜嗚繖鍙ヨ瘽锛岄厤缃畬浜嗕互鍚庯紝鐩存帴鍘诲鎵緒ebapp/css/hello.css-->
+    <!--<mvc:resources mapping="/static/**" location="/static/"/>
+    <mvc:resources mapping="/lib/**" location="/lib/"/>-->
+</beans>

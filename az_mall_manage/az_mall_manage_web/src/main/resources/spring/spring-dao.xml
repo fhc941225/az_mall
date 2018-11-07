@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+    ">
+    <!--配置数据库连接文件-->
+    <context:property-placeholder location="classpath:db.properties"/>
+    <!--配置数据源-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <!--添加基本属性-->
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <!--添加优化属性-->
+        <property name="defaultAutoCommit" value="false"/>
+    </bean>
+
+    <!--閰嶇疆浼氳瘽宸ュ巶-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--灞炴�ф敞鍏ユ暟鎹簮-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--灞炴�ф敞鍏ybatis鐨勪富閰嶇疆鏂囦欢-->
+        <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
+    </bean>
+
+    <!--閰嶇疆鎵弿DAO鎺ュ彛-->
+    <!--MapperScannerConfigurer鍜孲qlSessionFactoryBean閮芥槸鏉ヨ嚜浜巑ybatis-spring.jar-->
+    <!--MapperScannerConfigurer锛岃繖涓被灏辨槸浣犱笉鍐橠AO鎺ュ彛瀹炵幇绫荤殑鍘熷洜-->
+    <!--bean鏃讹紝浠�涔堟椂鍊欓渶瑕佷簺id灞炴�э紵 濡傛灉杩欎釜bean瀹氫箟濂戒簡浠ュ悗闇�瑕佸湪鍒殑鍦版柟琚紩鐢ㄥ氨闇�瑕佹坊鍔爄d灞炴��-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--娉ㄥ叆浼氳瘽宸ュ巶-->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <!--娉ㄥ叆DAO灞傛墍鍦ㄥ寘鐨勫熀纭�璺緞-->
+        <property name="basePackage" value="com.az.manager.dao"/>
+    </bean>
+
+</beans>
