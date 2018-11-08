@@ -19,7 +19,7 @@ public class UserService implements IUserService {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private UserMapper userMapper;
-    //根据搜索，分页信息返回值
+
     @Override
     public UserListMessageDto selectByPageMessage(PageMessageDto pageMessage) {
         UserListMessageDto dto=new UserListMessageDto();
