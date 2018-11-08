@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.az.manager.dao.StoreMapper">
+
+    <sql id="where">
+        <where>
+            <if test="searchUname != '' and searchUname != null">
+                and u.username like "%${searchUname}%"
+            </if>
+            <if test="searchName != '' and searchName != null">
+                and s.name like "%${searchName}%"
+            </if>
+        </where>
+    </sql>
+
+    <!-- 查总数 -->
+    <select id="selectCount" parameterType="com.az.manager.pojo.vo.ListApplicationAndStoreVo" resultType="Long">
+        select count(s.id) from tb_store s left join tb_user u on s.uid=u.id
+        <include refid="where"/>
+    </select>
+
+    <!-- 列出所有商店 -->
+    <select id="selectStore" parameterType="com.az.manager.pojo.vo.ListApplicationAndStoreVo" resultType="com.az.manager.pojo.po.StorePo">
+        select s.id,s.uid,s.name,s.date,s.state,u.username uname
+        from tb_store s left join tb_user u on s.uid=u.id
+        <include refid="where"/>
+        order by s.date desc limit #{offset},#{pageSize}
+    </select>
+
+    <!-- 改状态 -->
+    <update id="updateState" parameterType="com.az.manager.pojo.po.StorePo">
+        update tb_store set state = #{state} where id = #{id}
+    </update>
+
+    <!-- 增加商店 -->
+    <insert id="insertStore" parameterType="com.az.manager.pojo.po.StorePo">
+        insert into tb_store values (#{id}, #{uid}, #{name}, #{date}, #{state})
+    </insert>
+
+</mapper>
