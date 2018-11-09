@@ -4,5 +4,29 @@
    <select id="selectByNameAndPassword" parameterType="com.az.manager.pojo.vo.ManagerVo" resultType="com.az.manager.pojo.po.ManagerPo">
        select id,name,password,age,sex,nickname,usertype from tb_manager where name=#{name} and password=#{password}
    </select>
+    <sql id="Base_Column_List" >
+
+        id, name, password, age,sex, nickname, usertype
+    </sql>
+    <select id="selectallManager" parameterType="com.az.manager.pojo.vo.PageInfo" resultType="com.az.manager.pojo.po.TbManager">
+
+        select
+        <include refid="Base_Column_List"/>
+        from  tb_manager
+        limit #{offset},#{pageSize}
+    </select>
+    <select id="countManager" resultType="_long">
+    SELECT COUNT(*)
+        FROM  tb_manager
+    </select>
+    <insert id="addManager" parameterType="com.az.manager.pojo.po.TbManager">
+
+        insert  into tb_manager(name, password,
+      age, sex, nickname,
+      usertype)
+      values (#{name}, #{password},
+      #{age}, #{sex}, #{nickname},
+      0)
+    </insert>
 
 </mapper>
