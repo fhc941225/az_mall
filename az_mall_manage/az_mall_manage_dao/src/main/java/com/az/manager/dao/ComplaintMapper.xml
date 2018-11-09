@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.az.manager.dao.ComplaintMapper" >
+    <resultMap id="baseMap" type="com.az.manager.pojo.vo.ComplaintVo">
+        <result property="id" column="cid"></result>
+        <result property="content" column="content"></result>
+        <result property="date" column="date"></result>
+        <result property="auditState" column="auditState"></result>
+        <association property="user" javaType="com.az.manager.pojo.po.UserPo">
+            <id column="uid" property="id"></id>
+            <result property="username" column="username"></result>
+            <result property="phone" column="uphone"></result>
+        </association>
+        <association property="store" javaType="com.az.manager.pojo.vo.StoreVo">
+            <result property="name" column="sname"></result>
+            <association property="user" javaType="com.az.manager.pojo.po.UserPo">
+                <id column="suid" property="id"></id>
+                <result property="username" column="suname"></result>
+                <result property="phone" column="suphone"></result>
+            </association>
+        </association>
+    </resultMap>
+
+    <select id="selectByPage" parameterType="com.az.manager.pojo.dto.SelectPageDto" resultMap="baseMap">
+        SELECT c.id cid,u.id uid,u.username username,u.phone uphone,c.content,c.date,su.id suid,su.username suname,
+        su.phone suphone,s.name sname,c.auditState FROM tb_complaint c LEFT JOIN tb_user u ON c.uid=u.id LEFT JOIN tb_store s ON
+        c.sid=s.id LEFT JOIN tb_user su ON su.id=s.uid  order by c.auditState,c.date desc limit #{startPage},
+        #{pageSize}
+    </select>
+    <update id="updateState">
+        update tb_complaint set auditState=1 where id=#{id}
+    </update>
+    <select id="count" resultType="java.lang.Long">
+        SELECT count(1) FROM tb_complaint c LEFT JOIN tb_user u ON c.uid=u.id LEFT JOIN tb_store s ON
+        c.sid=s.id LEFT JOIN tb_user su ON su.id=s.uid limit #{startPage},#{pageSize}
+    </select>
+</mapper>
