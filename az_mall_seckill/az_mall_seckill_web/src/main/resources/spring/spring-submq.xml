@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+    ">
+
+    <bean id="targetConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="tcp://101.132.38.253:61616"/>
+    </bean>
+    <bean id="connectionFactory" class="org.springframework.jms.connection.SingleConnectionFactory">
+        <property name="targetConnectionFactory" ref="targetConnectionFactory"/>
+    </bean>
+
+    <!--获取目标对象-->
+    <bean id="topicDestination" class="org.apache.activemq.command.ActiveMQTopic">
+        <constructor-arg value="orderTopic"/>
+    </bean>
+
+    <!--配置监听器-->
+    <bean id="orderMessageListener" class="com.az.seckill.listener.OrderMessageListener"/>
+    <!--配置默认监听容器-->
+    <bean class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <!--注入连接工厂-->
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <!--注入目标对象-->
+        <property name="destination" ref="topicDestination"/>
+        <!--注入监听器-->
+        <property name="messageListener" ref="orderMessageListener"/>
+    </bean>
+</beans>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.az.seckill.dao.SeckillMapper">
+    <!-- 增加订单 -->
+    <insert id="saveOrder">
+        insert into tb_seckill_order values(#{id},#{productId},#{userId},#{creatTime},#{address},0)
+    </insert>
+
+    <!-- 列出所有申请 -->
+    <select id="selectApplication" parameterType="com.az.manager.pojo.vo.ListApplicationAndStoreVo" resultType="com.az.manager.pojo.po.ApplicationPo">
+        select a.id,a.uid,a.name,a.content,a.date,a.state,u.username uname
+        from tb_application a left join tb_user u on a.uid=u.id
+        <include refid="where"/>
+        order by a.date desc limit #{offset},#{pageSize}
+    </select>
+
+    <!-- 审批 -->
+    <update id="updateState" parameterType="com.az.manager.pojo.po.ApplicationPo">
+        update tb_application set state = #{state} where id = #{id}
+    </update>
+
+</mapper>

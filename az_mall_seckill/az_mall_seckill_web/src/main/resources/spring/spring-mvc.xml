@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+">
+    <!--閹殿偅寮縲eb鐏炲倻娈戝▔銊ㄐ掔猾锟�,娴犮儰绗呭▔銊ㄐ掗弰顖欒礋娴滃棙澹傞幓蹇氱箹娑擃亝鏁炵憴锝忕窗@Controller-->
+    <context:component-scan base-package="com.az.seckill.controller"/>
+    <!--@RequestMapping @ResponseBody jackson鏉烆剚宕查幋鎬濻ON-->
+    <mvc:annotation-driven/>
+    <!--娑撳﹣绱剁憴锝嗙�介崳锟�-->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding">
+            <value>UTF-8</value>
+        </property>
+        <property name="maxUploadSize">
+            <!-- 10M -->
+            <value>10485760</value>
+        </property>
+        <property name="maxInMemorySize">
+            <value>4096</value>
+        </property>
+    </bean>
+    <!--闁板秶鐤嗙憴鍡楁禈鐟欙絾鐎介崳锟� Controller  hello(){return "index"}  鏉烆剙褰傞敍锟�/WEB-INF/jsp/index.jsp -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+</beans>

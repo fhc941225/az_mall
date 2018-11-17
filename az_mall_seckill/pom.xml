@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>az_mall_parent</artifactId>
+        <groupId>com.qf</groupId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../az_mall_parent/pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>az_mall_seckill</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+
+        <module>az_mall_seckill_dao</module>
+        <module>az_mall_seckill_pojo</module>
+        <module>az_mall_seckill_serviceImpl</module>
+        <module>az_mall_seckill_web</module>
+        <module>az_mall_seckill_service</module>
+    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>com.qf</groupId>
+            <artifactId>az_mall_common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+
+</project>
