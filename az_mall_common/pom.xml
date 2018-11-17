@@ -13,6 +13,12 @@
     <packaging>jar</packaging>
 
     <dependencies>
+
+       <dependency>
+            <groupId>org.csource</groupId>
+            <artifactId>fastdfs-client-java</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-core</artifactId>
@@ -195,5 +201,6 @@
             <artifactId>freemarker</artifactId>
         </dependency>
     </dependencies>
+
 
 </project>

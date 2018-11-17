@@ -13,9 +13,9 @@
     <modules>
         <module>../az_mall_common</module>
         <module>../az_mall_manage</module>
+        <module>../az_mall_search</module>
     </modules>
     <!--当前工程有哪些子模块-->
-
     <!--依赖的版本统一控制-->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -56,10 +56,17 @@
         <IKAnalyzer.version>2012FF_u1</IKAnalyzer.version>
         <shiro.version>1.3.2</shiro.version>
 
+        <fastdfs.version>1.27-SNAPSHOT</fastdfs.version>
+
     </properties>
     <!--依赖的声明-->
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.csource</groupId>
+                <artifactId>fastdfs-client-java</artifactId>
+                <version>${fastdfs.version}</version>
+            </dependency>
             <!--JSP相关jar-->
             <dependency>
                 <groupId>javax.servlet</groupId>
