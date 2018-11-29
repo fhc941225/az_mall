@@ -3,24 +3,25 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>az_mall_manage</artifactId>
+        <artifactId>az_mall_search</artifactId>
         <groupId>com.qf</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>az_mall_manage_web</artifactId>
+    <artifactId>az_mall_search_web</artifactId>
     <packaging>war</packaging>
+
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
     </properties>
 
     <dependencies>
-
         <dependency>
             <groupId>com.qf</groupId>
-            <artifactId>az_mall_manage_service</artifactId>
+            <artifactId>az_mall_search_service</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <!--JSP相关jar-->
@@ -38,27 +39,23 @@
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
         </dependency>
-       <!-- <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>org.springframework.web</artifactId>
-            <version>3.1.0.RELEASE</version>
-        </dependency>-->
     </dependencies>
 
     <build>
-        <finalName>az_mall_manage_web</finalName>
+        <finalName>az_mall_search_web</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
-                <!--配置Tomcat插件-->
+                <version>2.2</version>
                 <configuration>
-                    <!--端口号-->
-                    <port>81</port>
-                    <!--上下文-->
-                    <path>/manager</path>
-                    <!--解决GET请求中的中文乱码问题-->
-                    <uriEncoding>UTF-8</uriEncoding>
+                    <!--远程tomcat的地址-->
+                    <url>http://116.62.227.60:8090/manager/text</url>
+                    <username>admin</username>
+                    <password>admin123</password>
+                    <!--更新功能设置为true，更新之后可以被覆盖-->
+                    <update>true</update>
+                    <path>/search</path>
                 </configuration>
             </plugin>
         </plugins>

@@ -1,3 +1,4 @@
+/*
 package com.lsj;
 
 import com.az.manager.dao.ManagerMapper;
@@ -44,3 +45,4 @@ public class TbManagerTest {
     }
 
 }
+*/
