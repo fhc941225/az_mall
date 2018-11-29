@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+    ">
+    <!--閰嶇疆鏁版嵁搴撹繛鎺ユ枃浠�-->
+    <context:property-placeholder location="classpath:db.properties"/>
+    <!--閰嶇疆鏁版嵁婧�-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <!--娣诲姞鍩烘湰灞炴��-->
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <!--娣诲姞浼樺寲灞炴��-->
+        <property name="defaultAutoCommit" value="false"/>
+    </bean>
+
+    <!--闁板秶鐤嗘导姘崇樈瀹搞儱宸�-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--鐏炵偞锟窖勬暈閸忋儲鏆熼幑顔界爱-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--鐏炵偞锟窖勬暈閸忣櫝ybatis閻ㄥ嫪瀵岄柊宥囩枂閺傚洣娆�-->
+        <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
+    </bean>
+
+    <!--闁板秶鐤嗛幍顐ｅ伎DAO閹恒儱褰�-->
+    <!--MapperScannerConfigurer閸滃qlSessionFactoryBean闁姤妲搁弶銉ㄥ殰娴滃窇ybatis-spring.jar-->
+    <!--MapperScannerConfigurer閿涘矁绻栨稉顏嗚鐏忚鲸妲告担鐘辩瑝閸愭AO閹恒儱褰涚�圭偟骞囩猾鑽ゆ畱閸樼喎娲�-->
+    <!--bean閺冭绱濇禒锟芥稊鍫熸閸婃瑩娓剁憰浣风昂id鐏炵偞锟窖嶇吹 婵″倹鐏夋潻娆庨嚋bean鐎规矮绠熸總鎴掔啊娴犮儱鎮楅棁锟界憰浣告躬閸掝偆娈戦崷鐗堟煙鐞氼偄绱╅悽銊ユ皑闂囷拷鐟曚焦鍧婇崝鐖刣鐏炵偞锟斤拷-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--濞夈劌鍙嗘导姘崇樈瀹搞儱宸�-->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <!--濞夈劌鍙咲AO鐏炲倹澧嶉崷銊ュ瘶閻ㄥ嫬鐔�绾拷鐠侯垰绶�-->
+        <property name="basePackage" value="com.az.seckill.dao"/>
+    </bean>
+
+</beans>
